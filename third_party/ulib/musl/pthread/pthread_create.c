@@ -80,8 +80,13 @@ int pthread_create(pthread_t* restrict res, const pthread_attr_t* restrict attrp
 
     const char* name = attr.__name ? attr.__name : "";
 
+    // XXX reimplement in terms of mxr_thread or new thread creation syscalls
+#if 0
     handle = mx_thread_create(thread_entry, &thread->mx_thread_info,
-                              name, strlen(name));
+                              "musl", 5);
+#else
+    handle = -1;
+#endif
     if (handle < 0) {
         __munmap(map, len);
         return handle;
